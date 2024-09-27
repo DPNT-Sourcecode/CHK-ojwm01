@@ -17,10 +17,13 @@ def get_offer_info(row, key, items):
         elif 'get' in offer:
             offer_type = 'get'
             row_split = offer.split('get')
-
-
-
     return offer_for, offer_get
+
+def get_offer_price(offer_for, offer_amount):
+    for offer in offer_for:
+        if offer.get('offer_num') == offer_amount:
+            offer_price = offer.get('offer_price')
+    return offer_price
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -51,17 +54,13 @@ def checkout(skus):
                     offer_amounts.append(offer.get('offer_num'))
                 offer_amounts.sort(reverse=True)
                 for i in range(0, len(offer_amounts)):
-                    for offer in offer_for:
-                        if offer.get('offer_num') == offer_amounts[i]:
-                            offer_price = offer.get('offer_price')
+                    price = get_offer_price(offer_for, offer_amounts[i])
                     if count % offer_amounts[i] == 0:
                         total_price += offer_price * (count/offer_amounts[i])
                         count = 0
 
                 for i in range(0, len(offer_amounts)):
-                    for offer in offer_for:
-                        if offer.get('offer_num') == offer_amounts[i]:
-                            offer_price = offer.get('offer_price')
+                    price = get_offer_price(i, offer_for)
                     while count > offer_amounts[i]:
                         total_price += offer_price
                         count -= offer_amounts[i]
@@ -83,6 +82,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
