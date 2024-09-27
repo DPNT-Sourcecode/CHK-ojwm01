@@ -3,4 +3,5 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    raise NotImplementedError()
+    df_stock = pd.DataF
+
