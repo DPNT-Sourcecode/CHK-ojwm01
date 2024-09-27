@@ -36,11 +36,3 @@ def checkout(skus):
 
 
 checkout('A, B, A, A')
-
-
-
-
-
-
-
-
