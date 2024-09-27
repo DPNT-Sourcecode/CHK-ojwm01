@@ -62,51 +62,42 @@ def checkout(skus):
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
         for key in item_counts:
-            offer_for= None
-            offer_get = None
-            df = df_stock[df_stock['Item'] == key]
-            count = item_counts.get(key)
+            if item_counts[key] > 0 :
+                offer_for= None
+                offer_get = None
+                df = df_stock[df_stock['Item'] == key]
+                count = item_counts.get(key)
 
-            if len(df[~df['Special Offers'].isna()]) > 0 :
-                offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
+                if len(df[~df['Special Offers'].isna()]) > 0 :
+                    offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
 
-            if offer_get:
-                if count % offer_get['offer_num'] == 0:
-                    item_counts[offer_get['item_free']] -= offer_get['amount_free']*(count/offer_get['offer_num'])
-                    if item_counts[offer_get['item_free']] < 0:
-                        offer_get['item_free'] = 0
+                if offer_get:
+                    if count % offer_get['offer_num'] == 0:
+                        item_counts[offer_get['item_free']] -= offer_get['amount_free']*(count/offer_get['offer_num'])
+                        if item_counts[offer_get['item_free']] < 0:
+                            offer_get['item_free'] = 0
 
-            if offer_for:
-                offer_amounts = []
-                for offer in offer_for:
-                    offer_amounts.append(offer.get('offer_num'))
-                offer_amounts.sort(reverse=True)
-                for i in range(0, len(offer_amounts)):
-                    offer_price = get_offer_price(offer_for, offer_amounts[i])
-                    if count % offer_amounts[i] == 0:
-                        total_price += offer_price * (count/offer_amounts[i])
-                        count = 0
-                for i in range(0, len(offer_amounts)):
-                    offer_price = get_offer_price(offer_for, offer_amounts[i])
-                    while count > offer_amounts[i]:
-                        total_price += offer_price
-                        count -= offer_amounts[i]
-                total_price += df['Price'].unique() * count
-
-
-
-
-
-    #             # else:
-    #                 while count > offer_num:
-    #                     total_price += offer_price
-    #                     count -= offer_num
-    #                 total_price += df['Price'].iloc[0] * count
-    #         else:
-    #             total_price += df['Price'].iloc[0] * count
-    #     return int(total_price)
-    # else:
-    #     return -1
+                if offer_for:
+                    offer_amounts = []
+                    for offer in offer_for:
+                        offer_amounts.append(offer.get('offer_num'))
+                    offer_amounts.sort(reverse=True)
+                    for i in range(0, len(offer_amounts)):
+                        offer_price = get_offer_price(offer_for, offer_amounts[i])
+                        if count % offer_amounts[i] == 0:
+                            total_price += offer_price * (count/offer_amounts[i])
+                            count = 0
+                    for i in range(0, len(offer_amounts)):
+                        offer_price = get_offer_price(offer_for, offer_amounts[i])
+                        while count > offer_amounts[i]:
+                            total_price += offer_price
+                            count -= offer_amounts[i]
+                    total_price += df['Price'].unique()[0] * count
+            else:
+                total_price += df['Price'].unique()[0] * count
+        return int(total_price)
+    else:
+        return -1
 
 
 print(checkout("ACDCAACAAAAEE"))
