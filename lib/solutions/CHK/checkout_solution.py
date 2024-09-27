@@ -41,4 +41,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout('A,B,C,D'))
+print(checkout("ABCDABCD"))
