@@ -10,15 +10,10 @@ def get_offer_info(row, key):
         row_split = offer.split('for')
         num = int(row_split[0].replace(key, ''))
         price = int(row_split[1].strip())
-        if num > offer_num:
-            rank = 1
-        else: rank = 2
-        offer_info = {'offer_num': num, 'offer_price': price, 'rank': rank}
+        offer_info = {'offer_num': num, 'offer_price': price}
         offer_List.append(offer_info)
         offer_num = num
-    if len(offer_info) > 1:
-        offer_info.get()
-    return num, price
+    return offer_info
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -58,4 +53,5 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
