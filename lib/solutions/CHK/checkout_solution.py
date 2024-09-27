@@ -13,7 +13,7 @@ def get_offer_info(row, key):
         offer_info = {'offer_num': num, 'offer_price': price}
         offer_List.append(offer_info)
         offer_num = num
-    return offer_info
+    return offer_List
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -32,12 +32,15 @@ def checkout(skus):
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
         for key in item_counts:
-            offer_num = None
+            offer_info = None
             df = df_stock[df_stock['Item'] == key]
             count = item_counts.get(key)
             if len(df[~df['Special Offers'].isna()]) > 0 :
-                offer_info = get_offer_info(df['Special Offers'], key)
-            if offer_num:
+                offer_list = get_offer_info(df['Special Offers'], key)
+            if offer_list:
+                offer_amounts = []
+                for offer in offer_list:
+                    offer_amounts += offer.get('offer_num')
                 if count % offer_num == 0:
                     total_price += offer_price * (count/offer_num)
                 else:
@@ -53,5 +56,6 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
