@@ -70,6 +70,12 @@ def checkout(skus):
             if len(df[~df['Special Offers'].isna()]) > 0 :
                 offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
 
+            if offer_get:
+                if count % offer_get['offer_num']:
+                    item_counts['item_free'] -= count
+                    if item_counts['item_free'] < 0:
+                        item_counts['item_free'] = 0
+
             if offer_for:
                 offer_amounts = []
                 for offer in offer_for:
@@ -86,8 +92,7 @@ def checkout(skus):
                         total_price += offer_price
                         count -= offer_amounts[i]
                 total_price += df['Price'].unique() * count
-            if offer_get:
-                pass
+
 
 
 
@@ -104,6 +109,6 @@ def checkout(skus):
     #     return -1
 
 
-print(checkout("ABCDCBAABCABBAAA"))
+print(checkout("ABCDCBAABCABBAAAEE"))
 
 
