@@ -25,20 +25,25 @@ def checkout(skus):
         count = item_counts.get(key)
         if len(df[~df['Special Offers'].isna()]) > 0 :
             offer_num, offer_price = get_offer_info(df['Special Offers'].iloc[0], key)
-        if count % offer_num == 0:
-            total_price += offer_price * (count/offer_num)
+        if offer_num:
+            if count % offer_num == 0:
+                total_price += offer_price * (count/offer_num)
+            else:
+                while count > offer_num:
+                    total_price += offer_price
+                    count -= offer_num
+                total_price += df['Price'].iloc[0] * count
         else:
-            while count > offer_num:
-                total_price += offer_price
-                count -= offer_num
             total_price += df['Price'].iloc[0] * count
 
 
+    df_stock
 
 
 
 
 checkout('A, B, A, A, A, A, A,B,B, B, B, B, B')
+
 
 
 
