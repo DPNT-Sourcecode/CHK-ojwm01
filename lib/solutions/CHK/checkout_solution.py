@@ -67,7 +67,7 @@ def checkout(skus):
                         count -= offer_amounts[i]
 
                 total_price += df['Price'].unique() * count
-
+                total_price
 
 
     #             # else:
@@ -83,6 +83,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
