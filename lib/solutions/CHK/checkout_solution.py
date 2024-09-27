@@ -30,7 +30,10 @@ def get_offer_info(row, key, items):
             offer_type = 'get'
             row_split = offer.split('get')
             offer_num = row_split[0].replace(key, '')
-            key_free = [item in row_split[0] for item in items]
+            for item in items:
+                if item in row_split[0]:
+                    key_free = item
+
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
