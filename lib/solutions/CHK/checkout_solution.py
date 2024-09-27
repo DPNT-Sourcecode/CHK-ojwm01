@@ -15,8 +15,8 @@ def checkout(skus):
     remaining = skus
     for item in item_options:
         if item in skus:
-            remaining = skus.replace(item, '')
-    if isinstance(skus, str) & remaining == '':
+            remaining = remaining.replace(item, '')
+    if isinstance(skus, str) and remaining == '':
         item_counts = {}
         total_price = 0
         for sku in df_stock['Item'].unique():
@@ -41,7 +41,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout("ABC"))
-
-
-
+print(checkout('A,B,C,D'))

@@ -17,8 +17,8 @@ class TestChk():
     def test_illegal_input(self):
         assert checkout_solution.checkout(['A', 'B', 'C', 'D']) == -1
         assert checkout_solution.checkout(["ABCa"]) == -1
+        assert checkout_solution.checkout(["-"]) == -1
 
     def test_string_format(self):
-        assert checkout_solution.checkout('abcd') == 115
+        assert checkout_solution.checkout('ABCD') == 115
         assert checkout_solution.checkout('A;B;C;D') == 115
-
