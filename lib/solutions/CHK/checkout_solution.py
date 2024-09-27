@@ -37,3 +37,5 @@ def checkout(skus):
         return -1
 
 
+checkout(["a"])
+
