@@ -83,7 +83,6 @@ def checkout(skus):
                             item_counts[offer_get['item_free']] -= offer_get['amount_free']
                             count =- offer_get['offer_num']
 
-
                 if offer_for:
                     offer_amounts = []
                     for offer in offer_for:
@@ -107,4 +106,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout("ACDCAACAAAAEEBBBE"))
+print(checkout("EEEEEBB"))
