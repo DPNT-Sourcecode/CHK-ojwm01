@@ -10,13 +10,17 @@ def get_offer_info(row, key):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D'], 'Price': [50, 30, 20, 15], 'Special Offers': ['3A for 130', '2B for 45', pd.NA, pd.NA]})
+    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E'], 'Price': [50, 30, 20, 15, 40], 'Special Offers': ['3A for 130, 5A for 200', '2B for 45', pd.NA, pd.NA, '2E get one B free']})
     item_options = df_stock['Item'].to_list()
     remaining = skus
     for item in item_options:
         if item in skus:
             remaining = remaining.replace(item, '')
     if isinstance(skus, str) and remaining == '':
+        
+
+
+
         item_counts = {}
         total_price = 0
         for sku in df_stock['Item'].unique():
@@ -43,3 +47,4 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
