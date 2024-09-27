@@ -5,14 +5,16 @@ import pandas as pd
 
 def get_offer_info(row, key):
     offer_List = []
-    offer_num = 0
     for offer in row:
+        if 'for' in offer:
+            offer_type = 'for'
+        elif 'get' in offer:
+            offer_type = 'get'
         row_split = offer.split('for')
         num = int(row_split[0].replace(key, ''))
         price = int(row_split[1].strip())
-        offer_info = {'offer_num': num, 'offer_price': price}
+        offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
         offer_List.append(offer_info)
-        offer_num = num
     return offer_List
 
 # noinspection PyUnusedLocal
@@ -40,7 +42,8 @@ def checkout(skus):
             if offer_list:
                 offer_amounts = []
                 for offer in offer_list:
-                    offer_amounts += offer.get('offer_num')
+                    offer_amounts.append(offer.get('offer_num'))
+                offer_amounts.sort(reverse=True)
                 if count % offer_num == 0:
                     total_price += offer_price * (count/offer_num)
                 else:
@@ -56,6 +59,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
