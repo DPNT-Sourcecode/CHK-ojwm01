@@ -24,8 +24,8 @@ def checkout(skus):
     for item in items:
         df = df_stock[df_stock['Item'] == item]
         count = item_counts.get(item)
-        if count == df['Offer Number'].iloc[0]:
-            total_price += df['Offer Number'].iloc[0]
+        if count == int(df['Offer Number'].iloc[0]):
+            total_price += df['Offer Price'].iloc[0]
         else:
             total_price += df['Price'].iloc[0] * count
 
@@ -35,7 +35,8 @@ def checkout(skus):
     df_stock
 
 
-checkout('A, B')
+checkout('A, B, A, A')
+
 
 
 
