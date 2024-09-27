@@ -4,9 +4,14 @@ import pandas as pd
 
 
 def get_offer_info(row, key):
-    split = row.split('for')
-    num = int(split[0].replace(key, ''))
-    price = int(split[1].strip())
+    offer_info = {}
+    for offer in row:
+        row_split = offer.split('for')
+        num = int(row_split[0].replace(key, ''))
+        price = int(row_split[1].strip())
+        offer_info = {'offer_num': num, 'offer_price': price}
+    if len(offer_info) > 1:
+        offer_info.get()
     return num, price
 
 # noinspection PyUnusedLocal
@@ -30,7 +35,7 @@ def checkout(skus):
             df = df_stock[df_stock['Item'] == key]
             count = item_counts.get(key)
             if len(df[~df['Special Offers'].isna()]) > 0 :
-                offer_num, offer_price = get_offer_info(df['Special Offers'], key)
+                offer_info = get_offer_info(df['Special Offers'], key)
             if offer_num:
                 if count % offer_num == 0:
                     total_price += offer_price * (count/offer_num)
@@ -47,7 +52,3 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
-
-
-
-
