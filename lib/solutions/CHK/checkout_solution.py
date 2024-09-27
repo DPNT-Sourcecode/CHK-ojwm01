@@ -50,17 +50,19 @@ def checkout(skus):
                 for offer in offer_for:
                     offer_amounts.append(offer.get('offer_num'))
                 offer_amounts.sort(reverse=True)
-                for offer_num in offer_amounts:
+                for i in range(0, len(offer_amounts)):
                     for offer in offer_for:
-                        if offer.get('offer_num') == offer_num:
+                        if offer.get('offer_num') == offer_amounts[i]:
                             offer_price = offer.get('offer_price')
-                    if count % offer_num == 0:
-                        total_price += offer_price * (count/offer_num)
+                    if count % offer_amounts[i] == 0:
+                        total_price += offer_price * (count/offer_amounts[i])
+                    if i != len(offer_amounts) -1:
+                        if count % offer_amounts[i + 1] == 0:
+                            total_price += offer_price * (count / offer_amounts[i+1])
                     else:
-
-                        while count > offer_num:
+                        while count > offer_amounts[i]:
                             total_price += offer_price
-                            count -= offer_num
+                            count -= offer_amounts[i]
                         total_price += df['Price'].unique() * count
 
 
@@ -78,4 +80,5 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
