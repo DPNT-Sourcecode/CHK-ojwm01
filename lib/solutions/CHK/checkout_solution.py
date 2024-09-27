@@ -15,15 +15,16 @@ def checkout(skus):
     df_stock['Offer Price'] = df_stock['Special Offers'].apply(lambda x: get_offer_price(x))
 
 
-    items = skus.split(', ')
-    items = [item.strip() for item in items]
+    # items = skus.split(', ')
+    # items = [item.strip() for item in items]
     item_counts = {}
     total_price = 0
     for sku in df_stock['Item'].unique():
-        item_counts[sku] = items.count(sku)
-    for item in items:
-        df = df_stock[df_stock['Item'] == item]
-        count = item_counts.get(item)
+        item_counts[sku] = skus.count(sku)
+    for key in item_counts:
+        df = df_stock[df_stock['Item'] == key]
+        count = item_counts.get(key)
+        if dfd
         if count == int(df['Offer Number'].iloc[0]):
             total_price += df['Offer Price'].iloc[0]
         else:
@@ -36,3 +37,4 @@ def checkout(skus):
 
 
 checkout('A, B, A, A')
+
