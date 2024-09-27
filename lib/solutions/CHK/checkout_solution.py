@@ -32,11 +32,11 @@ def get_offer_info(row, key, items):
             offer_num = row_split[0].replace(key, '')
             for item in items:
                 if item in row_split[1]:
-                    key_free = item
+                   item_free = item
             for k, v in help_dict.items():
                 if k in row_split[1]:
                     amount_free = help_dict[k]
-
+            offer_get = {'offer_num': offer_num, 'item_free': item_free, 'amount_free': amount_free}
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
@@ -86,7 +86,8 @@ def checkout(skus):
                         total_price += offer_price
                         count -= offer_amounts[i]
                 total_price += df['Price'].unique() * count
-                total_price
+            if offer_get:
+                pass
 
 
 
@@ -104,4 +105,5 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
