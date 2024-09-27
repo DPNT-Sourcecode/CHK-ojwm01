@@ -15,19 +15,22 @@ def checkout(skus):
     df_stock['Offer Price'] = df_stock['Special Offers'].apply(lambda x: get_offer_price(x))
 
 
-    items = skus.split(',')
+    items = skus.split(', ')
+    items = [item.strip() for item in items]
     item_counts = {}
     total_price = 0
     for sku in df_stock['Item'].unique():
         item_counts[sku] = items.count(sku)
-    for item in skus:
+    for item in items:
         df = df_stock[df_stock['Item'] == item]
+        if item_counts.get(item) == df[df['']]
 
 
     df_stock
 
 
 checkout('A, B')
+
 
 
 
