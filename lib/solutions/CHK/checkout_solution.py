@@ -14,8 +14,12 @@ def checkout(skus):
     df_stock['Offer Number'] = df_stock['Special Offers'].apply(lambda x: x[:1])
     df_stock['Offer Price'] = df_stock['Special Offers'].apply(lambda x: get_offer_price(x))
 
-    total_price = 0
+
     items = skus.split(',')
+    item_counts = {}
+    total_price = 0
+    for sku in df_stock['Item'].unique():
+        item_counts[sku] = items.count(sku)
     for item in skus:
         df = df_stock[df_stock['Item'] == item]
 
@@ -24,6 +28,7 @@ def checkout(skus):
 
 
 checkout('A, B')
+
 
 
 
