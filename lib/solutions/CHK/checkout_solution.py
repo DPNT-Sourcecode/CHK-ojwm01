@@ -6,6 +6,7 @@ def get_offer_info(row, key):
     num = int(split[0].replace(key, ''))
     price = int(split[1].strip())
     return num, price
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -13,6 +14,7 @@ def checkout(skus):
     if isinstance(skus, str):
         item_counts = {}
         total_price = 0
+        skus = skus.upper()
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
         for key in item_counts:
@@ -30,15 +32,8 @@ def checkout(skus):
                     total_price += df['Price'].iloc[0] * count
             else:
                 total_price += df['Price'].iloc[0] * count
-
         return int(total_price)
     else:
         return -1
 
 
-    df_stock
-
-
-
-
-checkout('A, B, A, A, A, A, A,B,B, B, B, B, B')
