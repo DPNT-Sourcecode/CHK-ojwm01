@@ -21,8 +21,6 @@ def checkout(skus):
     if isinstance(skus, str) and remaining == '':
         df_stock['Special Offers'] = df_stock['Special Offers'].apply(lambda x: x.split(', ') if pd.notnull(x) else x)
         df_stock = df_stock.explode('Special Offers')
-
-
         item_counts = {}
         total_price = 0
         for sku in df_stock['Item'].unique():
@@ -32,7 +30,7 @@ def checkout(skus):
             df = df_stock[df_stock['Item'] == key]
             count = item_counts.get(key)
             if len(df[~df['Special Offers'].isna()]) > 0 :
-                offer_num, offer_price = get_offer_info(df['Special Offers'].iloc[0], key)
+                offer_num, offer_price = get_offer_info(df['Special Offers'], key)
             if offer_num:
                 if count % offer_num == 0:
                     total_price += offer_price * (count/offer_num)
@@ -49,6 +47,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
