@@ -4,14 +4,18 @@ import pandas as pd
 
 
 def get_offer_info(row, key):
-    offer-List
+    offer_List = []
     offer_num = 0
     for offer in row:
-        offer_info = {}
         row_split = offer.split('for')
         num = int(row_split[0].replace(key, ''))
         price = int(row_split[1].strip())
-        offer_info = {f'offer_num_{offer_num}': num, f'offer_price_{offer_num}': price}
+        if num > offer_num:
+            rank = 1
+        else: rank = 2
+        offer_info = {'offer_num': num, 'offer_price': price, 'rank': rank}
+        offer_List.append(offer_info)
+        offer_num = num
     if len(offer_info) > 1:
         offer_info.get()
     return num, price
@@ -54,3 +58,4 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
