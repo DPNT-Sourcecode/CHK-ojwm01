@@ -29,6 +29,8 @@ def get_offer_info(row, key, items):
         elif 'get' in offer:
             offer_type = 'get'
             row_split = offer.split('get')
+            offer_num = row_split[0].replace(key, '')
+            key_free = 
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
@@ -96,6 +98,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
