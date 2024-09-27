@@ -36,7 +36,7 @@ def get_offer_info(row, key, items):
             for k, v in help_dict.items():
                 if k in row_split[1]:
                     amount_free = help_dict[k]
-            offer_get = {'offer_num': offer_num, 'item_free': item_free, 'amount_free': amount_free}
+            offer_get = {'offer_num': int(offer_num), 'item_free': item_free, 'amount_free': int(amount_free)}
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
@@ -71,10 +71,10 @@ def checkout(skus):
                 offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
 
             if offer_get:
-                if count % offer_get['offer_num']:
-                    item_counts['item_free'] -= count
-                    if item_counts['item_free'] < 0:
-                        item_counts['item_free'] = 0
+                if count % offer_get['offer_num'] == 0:
+                    offer_get['item_free'] -= count
+                    if offer_get['item_free'] < 0:
+                        offer_get['item_free'] = 0
 
             if offer_for:
                 offer_amounts = []
@@ -110,5 +110,6 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAAEE"))
+
 
 
