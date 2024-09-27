@@ -56,32 +56,30 @@ def checkout(skus):
                             offer_price = offer.get('offer_price')
                     if count % offer_amounts[i] == 0:
                         total_price += offer_price * (count/offer_amounts[i])
-                    # if i != len(offer_amounts) -1:
-                    #     if count % offer_amounts[i + 1] == 0:
-                    #         total_price += offer_price * (count / offer_amounts[i+1])
+                        count = 0
+
                 for i in range(0, len(offer_amounts)):
-                else:
+                    for offer in offer_for:
+                        if offer.get('offer_num') == offer_amounts[i]:
+                            offer_price = offer.get('offer_price')
                     while count > offer_amounts[i]:
                         total_price += offer_price
                         count -= offer_amounts[i]
-                    if i != len(offer_amounts) -1:
-                        while count > offer_amounts[i+1]:
-                            total_price += offer_price
-                            count -= offer_amounts[i]
-                    total_price += df['Price'].unique() * count
+
+                total_price += df['Price'].unique() * count
 
 
 
-                else:
-                    while count > offer_num:
-                        total_price += offer_price
-                        count -= offer_num
-                    total_price += df['Price'].iloc[0] * count
-            else:
-                total_price += df['Price'].iloc[0] * count
-        return int(total_price)
-    else:
-        return -1
+    #             # else:
+    #                 while count > offer_num:
+    #                     total_price += offer_price
+    #                     count -= offer_num
+    #                 total_price += df['Price'].iloc[0] * count
+    #         else:
+    #             total_price += df['Price'].iloc[0] * count
+    #     return int(total_price)
+    # else:
+    #     return -1
 
 
 print(checkout("ABCDCBAABCABBAAA"))
