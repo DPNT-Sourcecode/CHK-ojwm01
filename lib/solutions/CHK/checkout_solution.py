@@ -19,8 +19,8 @@ def checkout(skus):
         if item in skus:
             remaining = remaining.replace(item, '')
     if isinstance(skus, str) and remaining == '':
-        df_stock['Special Offers'] = df_stock['Special Offers'].apply(lambda x: x.split(', '), errors='ignore')
-
+        df_stock['Special Offers'] = df_stock['Special Offers'].apply(lambda x: x.split(', ') if pd.notnull(x) else x)
+        df_stock = df_stock.explode('Special Offers')
 
 
         item_counts = {}
@@ -49,5 +49,6 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
