@@ -6,11 +6,8 @@ class TestChk():
         assert checkout_solution.checkout('ABCDE') == 115
 
     def test_offers(self):
-        assert checkout_solution.checkout('AAAAAAAAAAAAAAAABBCDEEE') == 210
-        assert checkout_solution.checkout('AAABBCDEEEEEEE') == x
-
-    def test_multiples(self):
-        assert checkout_solution.checkout('AAAAAABBBBBCD') == 415
+        assert checkout_solution.checkout('AAAAAAAAAAAAAAAABBBEEE') == 765
+        assert checkout_solution.checkout('AAAAAAAABBEEEEEEE') == 610
 
     def test_no_sku(self):
         assert checkout_solution.checkout('AB') == 80
@@ -23,3 +20,4 @@ class TestChk():
     # def test_string_format(self):
     #     assert checkout_solution.checkout('ABCD') == 115
     #     assert checkout_solution.checkout('A;B;C;D') == 115
+
