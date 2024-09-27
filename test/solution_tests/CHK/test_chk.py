@@ -3,7 +3,7 @@ from solutions.CHK import checkout_solution
 
 class TestChk():
     def test_singles(self):
-        assert checkout_solution.checkout('A,B,C,D') == 35
+        assert checkout_solution.checkout('A,B,C,D') == 115
 
     def test_offers(self):
         assert checkout_solution.checkout('A,A,A,B,B,C,D') == 210
@@ -18,5 +18,5 @@ class TestChk():
         assert checkout_solution.checkout(['A', 'B', 'C', 'D']) == -1
 
     def test_string_format(self):
-        assert checkout_solution.checkout('abcd') == 35
-        assert checkout_solution.checkout('A;B;C;D') == 35
+        assert checkout_solution.checkout('abcd') == 115
+        assert checkout_solution.checkout('A;B;C;D') == 115
