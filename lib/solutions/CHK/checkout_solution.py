@@ -72,8 +72,8 @@ def checkout(skus):
 
             if offer_get:
                 if count % offer_get['offer_num'] == 0:
-                    offer_get['item_free'] -= count
-                    if offer_get['item_free'] < 0:
+                    item_counts[offer_get['item_free']] -= offer_get['amount_free']*(count/offer_get['offer_num'])
+                    if item_counts[offer_get['item_free']] < 0:
                         offer_get['item_free'] = 0
 
             if offer_for:
@@ -109,7 +109,7 @@ def checkout(skus):
     #     return -1
 
 
-print(checkout("ABCDCBAABCABBAAAEE"))
+print(checkout("ACDCAACAAAAEE"))
 
 
 
