@@ -22,6 +22,7 @@ def checkout(skus):
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
         for key in item_counts:
+            offer_num = None
             df = df_stock[df_stock['Item'] == key]
             count = item_counts.get(key)
             if len(df[~df['Special Offers'].isna()]) > 0 :
