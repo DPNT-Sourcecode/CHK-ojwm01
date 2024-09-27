@@ -3,17 +3,20 @@ from idlelib.iomenu import errors
 import pandas as pd
 
 
-def get_offer_info(row, key):
+def get_offer_info(row, key, items):
     offer_List = []
     for offer in row:
         if 'for' in offer:
             offer_type = 'for'
+            row_split = offer.split('for')
+            num = int(row_split[0].replace(key, ''))
+            price = int(row_split[1].strip())
+            offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
         elif 'get' in offer:
             offer_type = 'get'
-        row_split = offer.split('for')
-        num = int(row_split[0].replace(key, ''))
-        price = int(row_split[1].strip())
-        offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
+            row_split = offer.split('get')
+
+
         offer_List.append(offer_info)
     return offer_List
 
@@ -38,10 +41,10 @@ def checkout(skus):
             df = df_stock[df_stock['Item'] == key]
             count = item_counts.get(key)
             if len(df[~df['Special Offers'].isna()]) > 0 :
-                offer_list = get_offer_info(df['Special Offers'], key)
-            if offer_list:
+                offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
+            if offer_for:
                 offer_amounts = []
-                for offer in offer_list:
+                for offer in offer_for:
                     offer_amounts.append(offer.get('offer_num'))
                 offer_amounts.sort(reverse=True)
                 if count % offer_num == 0:
@@ -59,6 +62,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
