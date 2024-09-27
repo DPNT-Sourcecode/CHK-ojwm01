@@ -1,3 +1,5 @@
+from idlelib.iomenu import errors
+
 import pandas as pd
 
 
@@ -17,7 +19,7 @@ def checkout(skus):
         if item in skus:
             remaining = remaining.replace(item, '')
     if isinstance(skus, str) and remaining == '':
-        
+        df_stock['Special Offers'] = df_stock['Special Offers'].apply(lambda x: x.split(', '), errors='ignore')
 
 
 
@@ -47,4 +49,5 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
