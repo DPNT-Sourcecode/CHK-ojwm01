@@ -11,10 +11,9 @@ def get_offer_info(row, key):
 # skus = unicode string
 def checkout(skus):
     df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D'], 'Price': [50, 30, 20, 15], 'Special Offers': ['3A for 130', '2B for 45', pd.NA, pd.NA]})
-    if isinstance(skus, str):
+    if isinstance(skus, str) & skus.isupper() & :
         item_counts = {}
         total_price = 0
-        skus = skus.upper()
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
         for key in item_counts:
@@ -38,4 +37,5 @@ def checkout(skus):
 
 
 print(checkout(["-"]))
+
 
