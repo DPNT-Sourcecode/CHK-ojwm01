@@ -50,8 +50,13 @@ def checkout(skus):
                 for offer in offer_for:
                     offer_amounts.append(offer.get('offer_num'))
                 offer_amounts.sort(reverse=True)
-                if count % offer_num == 0:
-                    total_price += offer_price * (count/offer_num)
+                offer_for
+                for offer_num in offer_amounts:
+                    if count % offer_num == 0:
+                        total_price += offer_price * (count/offer_num)
+
+
+
                 else:
                     while count > offer_num:
                         total_price += offer_price
@@ -65,6 +70,7 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
 
 
 
