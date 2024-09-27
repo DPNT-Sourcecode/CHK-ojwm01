@@ -31,8 +31,11 @@ def get_offer_info(row, key, items):
             row_split = offer.split('get')
             offer_num = row_split[0].replace(key, '')
             for item in items:
-                if item in row_split[0]:
+                if item in row_split[1]:
                     key_free = item
+            for k, v in help_dict.items():
+                if k in row_split[1]:
+                    amount_free = help_dict[k]
 
     return offer_for, offer_get
 
@@ -101,3 +104,4 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
