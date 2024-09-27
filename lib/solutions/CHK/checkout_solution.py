@@ -57,6 +57,7 @@ def checkout(skus):
                     if count % offer_num == 0:
                         total_price += offer_price * (count/offer_num)
                     else:
+
                         while count > offer_num:
                             total_price += offer_price
                             count -= offer_num
@@ -77,3 +78,4 @@ def checkout(skus):
 
 
 print(checkout("ABCDCBAABCABBAAA"))
+
