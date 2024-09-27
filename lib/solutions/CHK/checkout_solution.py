@@ -60,6 +60,7 @@ def checkout(skus):
                         while count > offer_num:
                             total_price += offer_price
                             count -= offer_num
+                        total_price += df['Price'].unique() * count
 
 
 
