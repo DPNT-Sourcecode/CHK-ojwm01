@@ -53,7 +53,7 @@ def checkout(skus):
                                       'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                                       'Y', 'Z'],
                              'Price': [50, 30, 20, 15, 40, 10, 20, 10, 35, 60, 70, 90, 15, 40,
-                                       10, 50, 30, 50, 30, 20, 40, 50, 20, 17, 20, 21],
+                                       10, 50, 30, 50, 20, 20, 40, 50, 20, 17, 20, 21],
                              'Special Offers': ['3A for 130, 5A for 200', '2B for 45',
                                                 pd.NA, pd.NA, '2E get one B free',
                                                 '2F get one F free', pd.NA,'5H for 45, 10H for 80',
@@ -77,6 +77,10 @@ def checkout(skus):
         total_price = 0
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
+
+        if len(df_stock[df_stock['Special Offers'] == 'buy any 3 of (S,T,X,Y,Z) for 45' ]) > 0:
+            
+
         for key in item_counts:
             if item_counts[key] > 0 :
                 offer_for= None
@@ -85,7 +89,7 @@ def checkout(skus):
                 count = item_counts.get(key)
 
                 if len(df[~df['Special Offers'].isna()]) > 0 :
-                    offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
+                    offer_for, offer_get, offer_any = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
 
                 if offer_get:
                     if count % offer_get['offer_num'] == 0:
@@ -114,6 +118,10 @@ def checkout(skus):
                                 total_price += offer_price
                                 count -= offer_amounts[i]
                     total_price += df['Price'].unique()[0] * count
+
+
+
+
                 else:
                     total_price += df['Price'].unique()[0] * count
         return int(total_price)
@@ -122,5 +130,6 @@ def checkout(skus):
 
 
 print(checkout("G"))
+
 
 
