@@ -1,4 +1,5 @@
 from idlelib.iomenu import errors
+from os import remove
 
 import pandas as pd
 
@@ -83,6 +84,7 @@ def checkout(skus):
             items_any = ['S', 'T', 'X', 'Y', 'Z']
             df_any = df_stock[df_stock['Item'].isin(items_any)]
             df_any.sort_values(by='Price', ascending=False, inplace=True)
+            items_any_sorted = df_any['Item'].unique()
             for item in items_any:
                 any_count += item_counts[item]
             if any_count % 3 == 0:
@@ -91,6 +93,12 @@ def checkout(skus):
                 while any_count > 3:
                     total_price += 45
                     any_count -= 3
+                    remove_count = 0
+                    while remove_count < 3:
+                        for item in items_any_sorted:
+                            while item in skus:
+                                remove_count += 1
+                                skus = skus.replace(item, '')
 
         item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
         for key in item_counts:
@@ -142,3 +150,4 @@ def checkout(skus):
 
 
 print(checkout("XYZST"))
+
