@@ -48,7 +48,11 @@ def get_offer_price(offer_for, offer_amount):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E', 'F'], 'Price': [50, 30, 20, 15, 40, 10], 'Special Offers': ['3A for 130, 5A for 200', '2B for 45', pd.NA, pd.NA, '2E get one B free', '2F get one F free']})
+    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', M],
+                             'Price': [50, 30, 20, 15, 40, 10],
+                             'Special Offers': ['3A for 130, 5A for 200', '2B for 45',
+                                                pd.NA, pd.NA, '2E get one B free',
+                                                '2F get one F free',]})
     item_options = df_stock['Item'].to_list()
     remaining = skus
     for item in item_options:
@@ -108,4 +112,5 @@ def checkout(skus):
 
 
 print(checkout("FFFF"))
+
 
