@@ -6,8 +6,8 @@ class TestChk():
         assert checkout_solution.checkout('ABCDE') == 155
 
     def test_offers(self):
-        assert checkout_solution.checkout('AAAAAAAAAAAAAAA') == 300
-        assert checkout_solution.checkout('AAAAAAAA') == 430
+        assert checkout_solution.checkout('AAAAAAAAAAAAAAA') == 600
+        assert checkout_solution.checkout('AAAAAAAA') == 330
         assert checkout_solution.checkout('BBB') == 75
         assert checkout_solution.checkout('EEEBBB') == 165
 
@@ -22,3 +22,4 @@ class TestChk():
     # def test_string_format(self):
     #     assert checkout_solution.checkout('ABCD') == 115
     #     assert checkout_solution.checkout('A;B;C;D') == 115
+
