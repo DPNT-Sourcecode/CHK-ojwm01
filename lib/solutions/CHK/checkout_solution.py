@@ -79,10 +79,6 @@ def checkout(skus):
             item_counts[sku] = skus.count(sku)
 
         if len(df_stock[df_stock['Special Offers'] == 'buy any 3 of (S,T,X,Y,Z) for 45' ]) > 0:
-            
-
-        for key in item_counts:
-            if item_counts[key] > 0 :
                 offer_for= None
                 offer_get = None
                 df = df_stock[df_stock['Item'] == key]
@@ -130,6 +126,7 @@ def checkout(skus):
 
 
 print(checkout("G"))
+
 
 
 
