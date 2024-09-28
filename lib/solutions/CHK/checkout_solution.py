@@ -80,7 +80,10 @@ def checkout(skus):
 
         if len(df_stock[df_stock['Special Offers'] == 'buy any 3 of (S,T,X,Y,Z) for 45' ]) > 0:
             any_count = 0
-            for item in ['S', 'T', 'X', 'Y', 'Z']:
+            items_any = ['S', 'T', 'X', 'Y', 'Z']
+            df_any = df_stock[df_stock['Item'].isin(items_any)]
+            df_any.sort_values(by='Price', ascending=False, inplace=True)
+            for item in items_any:
                 any_count += item_counts[item]
             if any_count % 3 == 0:
                 total_price += any_count/3 * 45
@@ -88,6 +91,7 @@ def checkout(skus):
                 while any_count > 3:
                     total_price += 45
                     any_count -= 3
+
         item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
         for key in item_counts:
             if item_counts[key] > 0 :
