@@ -119,7 +119,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-
-
-
+print(checkout("HHHHHHHHHHHHHHH"))
