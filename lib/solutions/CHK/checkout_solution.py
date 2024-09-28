@@ -20,23 +20,23 @@ def get_offer_info(row, key, items):
     offer_get = None
     for offer in row:
         if 'for' in offer:
-            offer_type = 'for'
             row_split = offer.split('for')
             num = int(row_split[0].replace(key, ''))
             price = int(row_split[1].strip())
             offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
             offer_for.append(offer_info)
         elif 'get' in offer:
-            offer_type = 'get'
             row_split = offer.split('get')
-            offer_num = row_split[0].replace(key, '')
+            offer_num = int(row_split[0].replace(key, ''))
             for item in items:
                 if item in row_split[1]:
                    item_free = item
             for k, v in help_dict.items():
                 if k in row_split[1]:
                     amount_free = help_dict[k]
-            offer_get = {'offer_num': int(offer_num), 'item_free': item_free, 'amount_free': int(amount_free)}
+            if item_free == key:
+                offer_num += 1
+            offer_get = {'offer_num': offer_num, 'item_free': item_free, 'amount_free': int(amount_free)}
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
@@ -108,3 +108,4 @@ def checkout(skus):
 
 
 print(checkout("FF"))
+
