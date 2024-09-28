@@ -95,11 +95,10 @@ def checkout(skus):
                         if count % offer_amounts[i] == 0:
                             total_price += offer_price * (count/offer_amounts[i])
                             count = 0
-                    for i in range(0, len(offer_amounts)):
-                        offer_price = get_offer_price(offer_for, offer_amounts[i])
-                        while count >= offer_amounts[i]:
-                            total_price += offer_price
-                            count -= offer_amounts[i]
+                        else:
+                            while count >= offer_amounts[i]:
+                                total_price += offer_price
+                                count -= offer_amounts[i]
                     total_price += df['Price'].unique()[0] * count
                 else:
                     total_price += df['Price'].unique()[0] * count
@@ -108,5 +107,5 @@ def checkout(skus):
         return -1
 
 
-print(checkout("AAAAAAAA"))
+print(checkout("AAAAAAAAA))
 
