@@ -103,7 +103,7 @@ def checkout(skus):
                                 skus = skus.replace(item, '')
 
 
-        item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
+        # item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
         for key in item_counts:
             if item_counts[key] > 0 :
                 offer_for= None
@@ -112,7 +112,7 @@ def checkout(skus):
                 count = item_counts.get(key)
 
                 if len(df[~df['Special Offers'].isna()]) > 0 :
-                    offer_for, offer_get, offer_any = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
+                    offer_for, offer_get = get_offer_info(df['Special Offers'], key, df_stock['Item'].to_list())
 
                 if offer_get:
                     if count % offer_get['offer_num'] == 0:
@@ -153,5 +153,6 @@ def checkout(skus):
 
 
 print(checkout("XYZST"))
+
 
 
