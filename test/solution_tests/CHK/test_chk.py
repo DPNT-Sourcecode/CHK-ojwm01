@@ -3,7 +3,7 @@ from solutions.CHK import checkout_solution
 
 class TestChk():
     def test_singles(self):
-        assert checkout_solution.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ') == 853
+        assert checkout_solution.checkout('ABCDEFGHIJKLMNOPQRUVW') == 755
 
     def test_offers(self):
         assert checkout_solution.checkout('AAAAAAAAAAAAAAA') == 600
@@ -13,7 +13,7 @@ class TestChk():
         assert checkout_solution.checkout("EEEFFFB") == 140
         assert checkout_solution.checkout("FF") == 20
         assert checkout_solution.checkout("HHHHHHHHHHHHHHH") == 125
-        assert checkout_solution.checkout("KKK") == 230
+        assert checkout_solution.checkout("KKK") == 190
         assert checkout_solution.checkout("NNNM") == 120
         assert checkout_solution.checkout("UUUU") == 120
         assert checkout_solution.checkout("VVVVVVVV") == 350
@@ -33,3 +33,4 @@ class TestChk():
     # def test_string_format(self):
     #     assert checkout_solution.checkout('ABCD') == 115
     #     assert checkout_solution.checkout('A;B;C;D') == 115
+

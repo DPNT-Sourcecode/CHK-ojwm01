@@ -60,7 +60,7 @@ def checkout(skus):
                              'Special Offers': ['3A for 130, 5A for 200', '2B for 45',
                                                 pd.NA, pd.NA, '2E get one B free',
                                                 '2F get one F free', pd.NA,'5H for 45, 10H for 80',
-                                                pd.NA, pd.NA,'2K for 150 ' ,pd.NA, pd.NA,'3N get one M free',
+                                                pd.NA, pd.NA,'2K for 120' ,pd.NA, pd.NA,'3N get one M free',
                                                 pd.NA, '5P for 200', '3Q for 80', '3R get one Q free',
                                                 'buy any 3 of (S,T,X,Y,Z) for 45', 'buy any 3 of (S,T,X,Y,Z) for 45',
                                                 '3U get one U free', '2V for 90, 3V for 130', pd.NA,
@@ -152,3 +152,4 @@ def checkout(skus):
 
 
 print(checkout("ZZZYSTY"))
+
