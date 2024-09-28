@@ -48,11 +48,19 @@ def get_offer_price(offer_for, offer_amount):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', M],
-                             'Price': [50, 30, 20, 15, 40, 10],
+    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                                      'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                                      'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                                      'Y', 'Z'],
+                             'Price': [50, 30, 20, 15, 40, 10, 20, 10, 35, 60, 80, 90, 15, 40,
+                                       10, 50, 30, 50, 30, 20, 40, 50, 20, 90, 10, 50],
                              'Special Offers': ['3A for 130, 5A for 200', '2B for 45',
                                                 pd.NA, pd.NA, '2E get one B free',
-                                                '2F get one F free',]})
+                                                '2F get one F free', pd.NA,'5H for 45, 10H for 80',
+                                                pd.NA, pd.NA,'2K for 150 ' ,pd.NA, pd.NA,'3N get one M free',
+                                                pd.NA, '5P for 200', '3Q for 80', '3R get one Q free',
+                                                pd.NA, pd.NA, '3U get one U free', '2V for 90, 3V for 130',
+                                                pd.NA,pd.NA,pd.NA,pd.NA]})
     item_options = df_stock['Item'].to_list()
     remaining = skus
     for item in item_options:
@@ -111,6 +119,6 @@ def checkout(skus):
         return -1
 
 
-print(checkout("FFFF"))
+print(checkout("ABCDEFGHIJKLMNOP"))
 
 
