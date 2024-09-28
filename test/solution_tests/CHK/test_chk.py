@@ -17,6 +17,9 @@ class TestChk():
         assert checkout_solution.checkout("NNNM") == 120
         assert checkout_solution.checkout("UUUU") == 120
         assert checkout_solution.checkout("VVVVVVVV") == 350
+        assert checkout_solution.checkout("XYZSTZ") == 90
+        assert checkout_solution.checkout("ZZZYSTY") == 90
+
 
     def test_no_sku(self):
         assert checkout_solution.checkout('AB') == 80
