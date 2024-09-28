@@ -80,9 +80,9 @@ def checkout(skus):
                             offer_get['item_free'] = 0
                     else:
                         count_free = count
-                        while count > offer_get['offer_num']:
+                        while count_free > offer_get['offer_num']:
                             item_counts[offer_get['item_free']] -= offer_get['amount_free']
-                            count_free =- offer_get['offer_num']
+                            count_free -= offer_get['offer_num']
                     total_price += df['Price'].unique()[0] * count
 
                 if offer_for:
