@@ -65,6 +65,7 @@ runner = QueueBasedImplementationRunnerBuilder()\
     .with_solution_for('checkout', checkout_solution.checkout)\
     .with_solution_for('checklite', checklite_solution.checklite)\
     .create()
+print(runner)
 
 ChallengeSession\
     .for_runner(runner)\

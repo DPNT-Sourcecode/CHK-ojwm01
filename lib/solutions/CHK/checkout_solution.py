@@ -1,4 +1,5 @@
 from idlelib.iomenu import errors
+from os import remove
 
 import pandas as pd
 
@@ -19,24 +20,26 @@ def get_offer_info(row, key, items):
     offer_for = []
     offer_get = None
     for offer in row:
+        if offer == 'buy any 3 of (S,T,X,Y,Z) for 45':
+            continue
         if 'for' in offer:
-            offer_type = 'for'
             row_split = offer.split('for')
             num = int(row_split[0].replace(key, ''))
             price = int(row_split[1].strip())
-            offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
+            offer_info = {'offer_num': num, 'offer_price': price}
             offer_for.append(offer_info)
         elif 'get' in offer:
-            offer_type = 'get'
             row_split = offer.split('get')
-            offer_num = row_split[0].replace(key, '')
+            offer_num = int(row_split[0].replace(key, ''))
             for item in items:
                 if item in row_split[1]:
                    item_free = item
             for k, v in help_dict.items():
                 if k in row_split[1]:
                     amount_free = help_dict[k]
-            offer_get = {'offer_num': int(offer_num), 'item_free': item_free, 'amount_free': int(amount_free)}
+            if item_free == key:
+                offer_num += 1
+            offer_get = {'offer_num': offer_num, 'item_free': item_free, 'amount_free': int(amount_free)}
     return offer_for, offer_get
 
 def get_offer_price(offer_for, offer_amount):
@@ -48,7 +51,21 @@ def get_offer_price(offer_for, offer_amount):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E'], 'Price': [50, 30, 20, 15, 40], 'Special Offers': ['3A for 130, 5A for 200', '2B for 45', pd.NA, pd.NA, '2E get one B free']})
+    df_stock = pd.DataFrame({'Item': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                                      'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                                      'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                                      'Y', 'Z'],
+                             'Price': [50, 30, 20, 15, 40, 10, 20, 10, 35, 60, 70, 90, 15, 40,
+                                       10, 50, 30, 50, 20, 20, 40, 50, 20, 17, 20, 21],
+                             'Special Offers': ['3A for 130, 5A for 200', '2B for 45',
+                                                pd.NA, pd.NA, '2E get one B free',
+                                                '2F get one F free', pd.NA,'5H for 45, 10H for 80',
+                                                pd.NA, pd.NA,'2K for 120' ,pd.NA, pd.NA,'3N get one M free',
+                                                pd.NA, '5P for 200', '3Q for 80', '3R get one Q free',
+                                                'buy any 3 of (S,T,X,Y,Z) for 45', 'buy any 3 of (S,T,X,Y,Z) for 45',
+                                                '3U get one U free', '2V for 90, 3V for 130', pd.NA,
+                                                'buy any 3 of (S,T,X,Y,Z) for 45','buy any 3 of (S,T,X,Y,Z) for 45',
+                                                'buy any 3 of (S,T,X,Y,Z) for 45']})
     item_options = df_stock['Item'].to_list()
     remaining = skus
     for item in item_options:
@@ -63,6 +80,29 @@ def checkout(skus):
         total_price = 0
         for sku in df_stock['Item'].unique():
             item_counts[sku] = skus.count(sku)
+
+        if len(df_stock[df_stock['Special Offers'] == 'buy any 3 of (S,T,X,Y,Z) for 45' ]) > 0:
+            any_count = 0
+            items_any = ['S', 'T', 'X', 'Y', 'Z']
+            df_any = df_stock[df_stock['Item'].isin(items_any)]
+            df_any.sort_values(by='Price', ascending=False, inplace=True)
+            items_any_sorted = df_any['Item'].unique()
+            for item in items_any:
+                any_count += item_counts[item]
+            if any_count % 3 == 0:
+                total_price += any_count/3 * 45
+                item_counts = dict(
+                    (key, val) for key, val in item_counts.items() if key not in ['S', 'T', 'X', 'Y', 'Z'])
+            else:
+                while any_count > 3:
+                    total_price += 45
+                    any_count -= 3
+                    remove_count = 0
+                    for item in items_any_sorted:
+                        while item_counts[item] != 0 and remove_count < 3:
+                                remove_count += 1
+                                item_counts[item] -= 1
+
         for key in item_counts:
             if item_counts[key] > 0 :
                 offer_for= None
@@ -76,16 +116,16 @@ def checkout(skus):
                 if offer_get:
                     if count % offer_get['offer_num'] == 0:
                         item_counts[offer_get['item_free']] -= offer_get['amount_free']*(count/offer_get['offer_num'])
-                        if item_counts[offer_get['item_free']] < 0:
-                            offer_get['item_free'] = 0
                     else:
                         count_free = count
                         while count_free > offer_get['offer_num']:
                             item_counts[offer_get['item_free']] -= offer_get['amount_free']
                             count_free -= offer_get['offer_num']
-                    total_price += df['Price'].unique()[0] * count
+                    if item_counts[offer_get['item_free']] < 0:
+                        item_counts[offer_get['item_free']] = 0
+                    total_price += df['Price'].unique()[0] * item_counts[key]
 
-                if offer_for:
+                elif offer_for:
                     offer_amounts = []
                     for offer in offer_for:
                         offer_amounts.append(offer.get('offer_num'))
@@ -95,17 +135,20 @@ def checkout(skus):
                         if count % offer_amounts[i] == 0:
                             total_price += offer_price * (count/offer_amounts[i])
                             count = 0
-                    for i in range(0, len(offer_amounts)):
-                        offer_price = get_offer_price(offer_for, offer_amounts[i])
-                        while count > offer_amounts[i]:
-                            total_price += offer_price
-                            count -= offer_amounts[i]
+                        else:
+                            while count >= offer_amounts[i]:
+                                total_price += offer_price
+                                count -= offer_amounts[i]
                     total_price += df['Price'].unique()[0] * count
-            else:
-                total_price += df['Price'].unique()[0] * count
+
+
+
+
+                else:
+                    total_price += df['Price'].unique()[0] * count
         return int(total_price)
     else:
         return -1
 
 
-print(checkout("EEEEEBB"))
+print(checkout("ZZZYSTY"))
