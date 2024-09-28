@@ -23,7 +23,7 @@ def get_offer_info(row, key, items):
             row_split = offer.split('for')
             num = int(row_split[0].replace(key, ''))
             price = int(row_split[1].strip())
-            offer_info = {'offer_num': num, 'offer_price': price, 'offer_type': offer_type}
+            offer_info = {'offer_num': num, 'offer_price': price}
             offer_for.append(offer_info)
         elif 'get' in offer:
             row_split = offer.split('get')
@@ -107,5 +107,5 @@ def checkout(skus):
         return -1
 
 
-print(checkout("FF"))
+print(checkout("FFFF"))
 
