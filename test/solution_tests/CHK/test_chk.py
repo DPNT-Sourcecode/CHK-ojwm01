@@ -20,6 +20,7 @@ class TestChk():
 
     def test_no_sku(self):
         assert checkout_solution.checkout('AB') == 80
+        assert checkout_solution.checkout('G') == 20
 
     def test_illegal_input(self):
         assert checkout_solution.checkout('A,B,C,D') == -1
@@ -29,3 +30,4 @@ class TestChk():
     # def test_string_format(self):
     #     assert checkout_solution.checkout('ABCD') == 115
     #     assert checkout_solution.checkout('A;B;C;D') == 115
+
