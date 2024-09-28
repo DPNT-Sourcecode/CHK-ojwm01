@@ -83,12 +83,12 @@ def checkout(skus):
             for item in ['S', 'T', 'X', 'Y', 'Z']:
                 any_count += item_counts[item]
             if any_count % 3 == 0:
-                total_price += any_count * 45
+                total_price += any_count/3 * 45
             else:
                 while any_count > 3:
                     total_price += 45
                     any_count -= 3
-        item_counts = [item_counts.pop(key) for key in ['S', 'T', 'X', 'Y', 'Z']]
+        item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
         for key in item_counts:
             if item_counts[key] > 0 :
                 offer_for= None
@@ -137,4 +137,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout("XYZ"))
+print(checkout("XYZST"))
