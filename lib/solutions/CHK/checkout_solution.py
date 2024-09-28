@@ -88,7 +88,7 @@ def checkout(skus):
                 while any_count > 3:
                     total_price += 45
                     any_count -= 3
-
+        item_counts = [item_counts.pop(key) for key in ['S', 'T', 'X', 'Y', 'Z']]
         for key in item_counts:
             if item_counts[key] > 0 :
                 offer_for= None
@@ -138,7 +138,3 @@ def checkout(skus):
 
 
 print(checkout("XYZ"))
-
-
-
-
