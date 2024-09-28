@@ -99,8 +99,8 @@ def checkout(skus):
                     any_count -= 3
                     remove_count = 0
                     for item in items_any_sorted:
-                        while item_counts[item] != 0:
-                            if remove_count < 3:
+                        if remove_count < 3:
+                            while item_counts[item] != 0:
                                 remove_count += 1
                                 item_counts[item] -= 1
 
@@ -153,9 +153,3 @@ def checkout(skus):
 
 
 print(checkout("ZZZYSTY"))
-
-
-
-
-
-
