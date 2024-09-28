@@ -20,6 +20,8 @@ def get_offer_info(row, key, items):
     offer_for = []
     offer_get = None
     for offer in row:
+        if offer == 'buy any 3 of (S,T,X,Y,Z) for 45':
+            continue
         if 'for' in offer:
             row_split = offer.split('for')
             num = int(row_split[0].replace(key, ''))
@@ -94,11 +96,12 @@ def checkout(skus):
                     total_price += 45
                     any_count -= 3
                     remove_count = 0
-                    while remove_count < 3:
-                        for item in items_any_sorted:
+                    for item in items_any_sorted:
+                        if remove_count < 3:
                             while item in skus:
                                 remove_count += 1
                                 skus = skus.replace(item, '')
+
 
         item_counts = dict((key, val) for key, val in item_counts.items()if key not in ['S', 'T', 'X', 'Y', 'Z'])
         for key in item_counts:
@@ -150,4 +153,5 @@ def checkout(skus):
 
 
 print(checkout("XYZST"))
+
 
