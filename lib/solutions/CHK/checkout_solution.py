@@ -119,4 +119,4 @@ def checkout(skus):
         return -1
 
 
-print(checkout("HHHHHHHHHHHHHHH"))
+print(checkout("UUU"))
