@@ -10,6 +10,8 @@ class TestChk():
         assert checkout_solution.checkout('AAAAAAAA') == 330
         assert checkout_solution.checkout('BBB') == 75
         assert checkout_solution.checkout('EEEBBB') == 165
+        assert checkout_solution.checkout("EEEFFFB") == 140
+        assert checkout_solution.checkout("FF") == 20
 
     def test_no_sku(self):
         assert checkout_solution.checkout('AB') == 80
